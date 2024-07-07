@@ -6,6 +6,18 @@ import {Loan} from './Models/Loans.js';
 import {Member} from './Models/Members.js';
 import {Reservation} from './Models/Reservations.js';
 
+import express from 'express';
+const app = express();
+import { Request, Response } from 'express';
+import {router as authorRoutes} from './Routes/author.route.js';
+import { router as bookRoutes} from './Routes/book.route.js';
+import { router as memberRoutes} from './Routes/member.route.js';
+import { router as loanRoutes}  from './Routes/loan.route.js';
+import { router as reservationRoutes } from './Routes/reservation.route.js';
+//import { app, router as bookRoutes} 
+
+import { setAssociations } from './controller/Associations.js';
+
 import { createAuthor, createBulkAuthors, getAllAuthors, getAuthorById, deleteAuthor, updateAuthorData} from './CRUD/AuthorOperations.js';
 import { createBook, createBulkBooks , getAllBooks, getBookById, deleteBook, updateBookData} from './CRUD/BookOperations.js';
 import {  createMember , createBulkMembers, getAllMembers , getMemberById, deleteMember, updateMemberData} from './CRUD/MemberOperations.js';
@@ -22,6 +34,7 @@ async function SyncDb() {
         await sequelize.sync({ force: true });
         console.log('Synced');
         
+        await setAssociations();
 
         await createAuthor('Mamtha', 2003, 'Indian');
         console.log("Author data inserted");
@@ -108,6 +121,8 @@ async function SyncDb() {
         await updateReservationData(2, { member_id: 3});
         console.log("Updated reservation data");
 
+
+
         
 
         
@@ -115,6 +130,25 @@ async function SyncDb() {
         console.error('Unable to sync to db:', error);
     }
 }
+//
+app.use(express.json());
+
+app.use('/api/ping', (req:Request, res:Response) => {
+    res.json({ message: 'pong'});
+});
+
+app.use('/api/authors', authorRoutes);
+app.use('/api/books', bookRoutes);
+app.use('/api/members', memberRoutes);
+app.use('/api/loans', loanRoutes );
+app.use('/api/reservations', reservationRoutes);
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+
+//app.use('/api/books', bookRoutes);
 
 SyncDb();
 

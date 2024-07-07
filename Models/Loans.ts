@@ -39,17 +39,6 @@ const Loan = sequelize.define<LoanAttributes>('Loan', {
 },{
     timestamps:false
 });
-Book.hasMany(Loan,{
-    foreignKey: 'id',
-    as: 'loans'
-});
-Loan.belongsTo(Book, {
-    foreignKey: 'book_id',
-    as: 'book'
-});
-Loan.belongsTo(Member, {
-    foreignKey: 'member_id',
-    as: 'member'
-});
+
 
 export {Loan, LoanAttributes};

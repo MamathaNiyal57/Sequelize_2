@@ -41,14 +41,7 @@ const Book = sequelize.define<BookAttributes>('Book', {
 },{
     timestamps:false
 });
-Author.hasMany(Book, {
-    foreignKey: 'authorId',
-    as: 'books'
-});
-Book.belongsTo(Author, {
-    foreignKey: 'authorId', 
-    as: 'author'
-});
+
 
 
 

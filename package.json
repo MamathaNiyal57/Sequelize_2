@@ -4,16 +4,20 @@
   "description": "Example application using Sequelize with PostgreSQL",
   "main": "app.js",
   "scripts": {
-    "start": "node --experimental-modules app.js"
+    "start": "node --experimental-modules app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
     "pg": "^8.7.1",
     "sequelize": "^6.16.2"
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "typescript": "^5.5.3"
   }
 }

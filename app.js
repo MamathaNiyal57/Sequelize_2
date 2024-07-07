@@ -8,8 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = require("./controller/db.js");
+const express_1 = __importDefault(require("express"));
+const app = (0, express_1.default)();
+const author_route_js_1 = require("./Routes/author.route.js");
+const book_route_js_1 = require("./Routes/book.route.js");
+const member_route_js_1 = require("./Routes/member.route.js");
+const loan_route_js_1 = require("./Routes/loan.route.js");
+const reservation_route_js_1 = require("./Routes/reservation.route.js");
+//import { app, router as bookRoutes} 
+const Associations_js_1 = require("./controller/Associations.js");
 const AuthorOperations_js_1 = require("./CRUD/AuthorOperations.js");
 const BookOperations_js_1 = require("./CRUD/BookOperations.js");
 const MemberOperations_js_1 = require("./CRUD/MemberOperations.js");
@@ -21,8 +33,7 @@ function SyncDb() {
         try {
             yield db_js_1.sequelize.sync({ force: true });
             console.log('Synced');
-            //await insertAuthors();
-            //console.log('Authors created successfully');
+            yield (0, Associations_js_1.setAssociations)();
             yield (0, AuthorOperations_js_1.createAuthor)('Mamtha', 2003, 'Indian');
             console.log("Author data inserted");
             yield (0, AuthorOperations_js_1.createBulkAuthors)(Data_js_1.authorsData);
@@ -45,8 +56,6 @@ function SyncDb() {
             // console.log("Book deleted succesfully");
             yield (0, BookOperations_js_1.updateBookData)(2, { title: 'Life' });
             console.log("Updated book data successfully");
-            //await insertBooks();
-            //console.log('Books created successfully');
             yield (0, MemberOperations_js_1.createMember)('Vinay', 'h-231, Warangal', '9845672396', 'vinay@gmail.com');
             console.log("Member inserted ");
             yield (0, MemberOperations_js_1.createBulkMembers)(Data_js_1.MembersData);
@@ -67,10 +76,6 @@ function SyncDb() {
             //await deleteLoanData(2);
             yield (0, LoanOperations_js_1.updateLoanData)(1, { book_id: 3 });
             console.log("updated loan data by its id ");
-            // await insertMembers();
-            // console.log('Members created successfully');
-            // await insertLoans();
-            // console.log('Loans data created successfully');
             yield (0, ReservationOperations_js_1.createReservation)(new Date('2024-07-09'), 6, 3);
             console.log("Reservation created");
             yield (0, ReservationOperations_js_1.createBulkReservations)(Data_js_1.ReservationsData);
@@ -80,12 +85,25 @@ function SyncDb() {
             //await deleteReservation(2);
             yield (0, ReservationOperations_js_1.updateReservationData)(2, { member_id: 3 });
             console.log("Updated reservation data");
-            // await insertReservations();
-            // console.log('Reservations data created successfully');
         }
         catch (error) {
             console.error('Unable to sync to db:', error);
         }
     });
 }
+//
+app.use(express_1.default.json());
+app.use('/api/ping', (req, res) => {
+    res.json({ message: 'pong' });
+});
+app.use('/api/authors', author_route_js_1.router);
+app.use('/api/books', book_route_js_1.router);
+app.use('/api/members', member_route_js_1.router);
+app.use('/api/loans', loan_route_js_1.router);
+app.use('/api/reservations', reservation_route_js_1.router);
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+//app.use('/api/books', bookRoutes);
 SyncDb();

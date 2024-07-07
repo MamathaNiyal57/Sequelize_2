@@ -35,18 +35,7 @@ const Reservation =sequelize.define<ReservationAttributes>('Reservation', {
 },{
     timestamps:false
 });
-Book.hasMany(Reservation, {
-    foreignKey: 'book_id',
-    as: 'reservations'
-});
-Reservation.belongsTo(Book,{
-    foreignKey: 'book_id',
-    as: 'book'
-});
-Reservation.belongsTo(Member, {
-    foreignKey: 'member_id',
-    as:'member'
-});
+
 
 
 export {Reservation, ReservationAttributes}
