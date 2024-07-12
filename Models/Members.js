@@ -23,8 +23,19 @@ const Member = db_1.sequelize.define('Member', {
     email: {
         type: sequelize_1.DataTypes.STRING(255),
         unique: true
+    },
+    loanCount: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    indexes: [
+        {
+            unique: true,
+            fields: ['name'],
+        }
+    ]
 });
 exports.Member = Member;

@@ -30,6 +30,9 @@ const MemberOperations_js_1 = require("./CRUD/MemberOperations.js");
 const LoanOperations_js_1 = require("./CRUD/LoanOperations.js");
 const ReservationOperations_js_1 = require("./CRUD/ReservationOperations.js");
 const Data_js_1 = require("./Data/Data.js");
+const LoanTransactions_js_1 = require("./Transactions/LoanTransactions.js");
+const ReservationT_js_1 = require("./Transactions/ReservationT.js");
+const ReserveT_js_1 = require("./Transactions/ReserveT.js");
 function SyncDb() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -94,6 +97,9 @@ function SyncDb() {
             yield (0, BookQ_js_1.getBooks)();
             yield (0, BookQ_js_1.getBooksWithAuthors)();
             yield (0, MemberQ_js_1.getMemberDetails)(1);
+            yield (0, LoanTransactions_js_1.issueBook)(3, 3);
+            yield (0, ReservationT_js_1.placeReservation)(5, 2);
+            yield (0, ReserveT_js_1.cancelReservation)(4, 2);
         }
         catch (error) {
             console.error('Unable to sync to db:', error);

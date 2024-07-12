@@ -20,6 +20,10 @@ const Loan = db_1.sequelize.define('Loan', {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false
     },
+    return_date: {
+        type: sequelize_1.DataTypes.DATE,
+        allowNull: true,
+    },
     book_id: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

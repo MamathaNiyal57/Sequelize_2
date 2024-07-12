@@ -30,6 +30,10 @@ import { createReservation, createBulkReservations, getAllReservations, getReser
 
 import { booksData, authorsData, MembersData, LoansData, ReservationsData } from './Data/Data.js';
 
+import { issueBook } from './Transactions/LoanTransactions.js';
+import { placeReservation } from './Transactions/ReservationT.js';
+import { cancelReservation } from './Transactions/ReserveT.js';
+
 
 
 async function SyncDb() {
@@ -137,6 +141,12 @@ async function SyncDb() {
 
         await getMemberDetails(1);
 
+        await issueBook(3, 3);
+
+        await placeReservation(5, 2);
+
+        await cancelReservation(5, 2);
+
         
     } catch (error) {
         console.error('Unable to sync to db:', error);
@@ -160,7 +170,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 
-//app.use('/api/books', bookRoutes);
+
 
 SyncDb();
 

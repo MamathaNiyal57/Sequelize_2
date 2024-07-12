@@ -22,6 +22,11 @@ const Loan = sequelize.define<LoanAttributes>('Loan', {
         type: DataTypes.DATE,
         allowNull: false
     },
+    return_date:{
+        type: DataTypes.DATE,
+        allowNull: true,
+
+    },
     book_id:{
         type: DataTypes.INTEGER,
         references:{

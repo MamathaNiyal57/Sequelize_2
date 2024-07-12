@@ -23,6 +23,11 @@ const Member = sequelize.define<MemberAttributes>('Member', {
     email:{
         type: DataTypes.STRING(255),
         unique: true
+    },
+    loanCount:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
     }
 },{
     timestamps:false,

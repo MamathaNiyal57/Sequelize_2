@@ -24,6 +24,11 @@ const Book = db_1.sequelize.define('Book', {
     publication_year: {
         type: sequelize_1.DataTypes.INTEGER
     },
+    status: {
+        type: sequelize_1.DataTypes.ENUM('available', 'loaned', 'reserved'),
+        allowNull: false,
+        defaultValue: 'available',
+    },
     authorId: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {
