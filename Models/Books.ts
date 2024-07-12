@@ -39,7 +39,13 @@ const Book = sequelize.define<BookAttributes>('Book', {
     }
 
 },{
-    timestamps:false
+    timestamps:false,
+    indexes:[
+        {
+            unique:true,
+            fields:['title'],
+        }
+    ]
 });
 
 

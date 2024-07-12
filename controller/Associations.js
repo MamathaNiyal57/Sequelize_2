@@ -21,9 +21,11 @@ function setAssociations() {
         Books_1.Book.belongsTo(Authors_1.Author, { foreignKey: 'authorId' });
         Books_1.Book.hasMany(Loans_1.Loan, { foreignKey: 'id' });
         Loans_1.Loan.belongsTo(Books_1.Book, { foreignKey: 'book_id' });
+        Members_1.Member.hasMany(Loans_1.Loan, { foreignKey: 'member_id' });
         Loans_1.Loan.belongsTo(Members_1.Member, { foreignKey: 'member_id' });
         Books_1.Book.hasMany(Reservations_1.Reservation, { foreignKey: 'book_id' });
         Reservations_1.Reservation.belongsTo(Books_1.Book, { foreignKey: 'book_id' });
+        Members_1.Member.hasMany(Reservations_1.Reservation, { foreignKey: 'member_id' });
         Reservations_1.Reservation.belongsTo(Members_1.Member, { foreignKey: 'member_id' });
     });
 }

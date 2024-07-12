@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_js_1 = require("./controller/db.js");
+const BookQ_js_1 = require("./Queries/BookQ.js");
+const MemberQ_js_1 = require("./Queries/MemberQ.js");
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const author_route_js_1 = require("./Routes/author.route.js");
@@ -85,6 +87,13 @@ function SyncDb() {
             //await deleteReservation(2);
             yield (0, ReservationOperations_js_1.updateReservationData)(2, { member_id: 3 });
             console.log("Updated reservation data");
+            yield (0, BookQ_js_1.bookAuthor)();
+            console.log("Book data fetched");
+            yield (0, BookQ_js_1.FindBookByAuthor)(3);
+            yield (0, BookQ_js_1.groupByGenre)();
+            yield (0, BookQ_js_1.getBooks)();
+            yield (0, BookQ_js_1.getBooksWithAuthors)();
+            yield (0, MemberQ_js_1.getMemberDetails)(1);
         }
         catch (error) {
             console.error('Unable to sync to db:', error);

@@ -25,7 +25,13 @@ const Member = sequelize.define<MemberAttributes>('Member', {
         unique: true
     }
 },{
-    timestamps:false
+    timestamps:false,
+    indexes:[
+        {
+            unique:true,
+            fields:['name'],
+        }
+    ]
 });
 
 export {Member, MemberAttributes};

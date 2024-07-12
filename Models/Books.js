@@ -32,6 +32,12 @@ const Book = db_1.sequelize.define('Book', {
         }
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    indexes: [
+        {
+            unique: true,
+            fields: ['title'],
+        }
+    ]
 });
 exports.Book = Book;

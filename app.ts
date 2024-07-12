@@ -6,6 +6,9 @@ import {Loan} from './Models/Loans.js';
 import {Member} from './Models/Members.js';
 import {Reservation} from './Models/Reservations.js';
 
+import { bookAuthor, FindBookByAuthor , groupByGenre, getBooks, getBooksWithAuthors} from './Queries/BookQ.js';
+import { getMemberDetails } from './Queries/MemberQ.js';
+
 import express from 'express';
 const app = express();
 import { Request, Response } from 'express';
@@ -119,11 +122,20 @@ async function SyncDb() {
         //await deleteReservation(2);
         
         await updateReservationData(2, { member_id: 3});
-        console.log("Updated reservation data");
+        console.log("Updated reservation data"); 
 
+        await bookAuthor();
+        console.log("Book data fetched");
 
+        await FindBookByAuthor(3);
 
-        
+        await groupByGenre();
+
+        await getBooks();
+
+        await getBooksWithAuthors();
+
+        await getMemberDetails(1);
 
         
     } catch (error) {

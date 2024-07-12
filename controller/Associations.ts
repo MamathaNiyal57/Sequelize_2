@@ -11,11 +11,13 @@ async function setAssociations (){
 
     Book.hasMany(Loan,{ foreignKey: 'id' });
     Loan.belongsTo(Book, { foreignKey: 'book_id' });
+    Member.hasMany(Loan, { foreignKey: 'member_id'});
     Loan.belongsTo(Member, { foreignKey: 'member_id' });
 
 
     Book.hasMany(Reservation, { foreignKey: 'book_id' });
     Reservation.belongsTo(Book,{foreignKey: 'book_id' });
+    Member.hasMany(Reservation, { foreignKey: 'member_id'});
     Reservation.belongsTo(Member, { foreignKey: 'member_id' });
 
 }
